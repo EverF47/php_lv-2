@@ -1,24 +1,12 @@
 <?php
 
-
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () { 
-    return view('home');
-});
+Route::controller(PageController::class)->group(function (){
+    Route::get('/', 'home')->name('home');
 
-Route::get('blog', function () { 
-    // consulta bd avanz
-    $posts=[
-        ['id'=>1,'title'=>'PHP',    'slug'=>'php'],
-        ['id'=>2,'title'=>'Laravel','slug'=>'laravel']
+    Route::get('blog','blog')->name('blog');
 
-    ];
-    return view('blog',['posts'=>$posts]);
-});
-
-Route::get('blog/{slug}', function ($slug) { 
-    $post = $slug;
-    
-    return view('post',['post'=>$post]);
+    Route::get('blog/{slug}','post')->name('post');
 });
