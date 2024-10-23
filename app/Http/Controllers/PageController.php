@@ -7,26 +7,28 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function home(){
+    public function home()
+    {
         return view('home');
     }
 
-    public function blog(){
-            // consulta bd avanz
-        $posts= [
-            ['id'=>1,'title'=>'PHP',    'slug'=>'php'],
-            ['id'=>2,'title'=>'Laravel','slug'=>'laravel']
+    public function blog()
+    {
+        //$posts =Post::get();
+        //$post =Post::first();
+        //$post =Post::find(25);
 
-        ];
+        //dd($post);
 
-    return view('blog',['posts'=>$posts]);
+        $posts=Post::latest()->paginate();
+        //dd($posts);
 
+
+        return view('blog',['posts'=>$posts]);
     }
 
-    public function post($slug){
-        $post = $slug;
-    
+    public function post(Post $post)
+    {
         return view('post',['post'=>$post]);
     }
-
 }
